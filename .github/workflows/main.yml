@@ -1,13 +1,19 @@
 name: Auto Update
 on:
   schedule:
-    - cron: '*/1 * * * *' # 每 1 分鐘執行一次
+    - cron: '*/5 * * * *'  # 每 5 分鐘執行一次
+
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Check for changes
+        run: |
+          git diff --quiet && exit 0  # 若無變更則退出
+
       - name: Auto commit and push
         run: |
           git add .
