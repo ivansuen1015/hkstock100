@@ -1,0 +1,15 @@
+name: Auto Update
+on:
+  schedule:
+    - cron: '*/1 * * * *' # 每 1 分鐘執行一次
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Auto commit and push
+        run: |
+          git add .
+          git commit -m "Auto update"
+          git push
